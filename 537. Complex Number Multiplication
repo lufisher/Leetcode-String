@@ -1,0 +1,38 @@
+Given two strings representing two complex numbers.
+
+You need to return a string representing their multiplication. Note i2 = -1 according to the definition.
+
+Example 1:
+Input: "1+1i", "1+1i"
+Output: "0+2i"
+Explanation: (1 + i) * (1 + i) = 1 + i2 + 2 * i = 2i, and you need convert it to the form of 0+2i.
+Example 2:
+Input: "1+-1i", "1+-1i"
+Output: "0+-2i"
+Explanation: (1 - i) * (1 - i) = 1 + i2 - 2 * i = -2i, and you need convert it to the form of 0+-2i.
+Note:
+
+The input strings will not have extra blank.
+The input strings will be given in the form of a+bi, where the integer a and b will both belong to the range of [-100, 100]. And the output should be also in this form.
+
+//这是最巧妙的方法！
+class Solution {
+public:
+	string complexNumberMultiply(string a, string b) {
+		int ra, ia, rb, ib;
+		char buff;
+		stringstream aa(a), bb(b), ans;
+		aa >> ra >> buff >> ia >> buff;
+		bb >> rb >> buff >> ib >> buff;
+		ans << ra*rb - ia*ib << "+" << ra*ib + rb*ia << "i";
+		return ans.str();
+		cout << buff;
+	}
+};
+每当涉及到关于string的题目，有几点是要掌握的。第一，是正则表达式。第二，是string与int之间的相互转换。第三，是string与char之间的关系和操作，例如大小写转换等
+关于第二点，最好的方法是使用流
+就例如在本题中，aa是a的流，bb是b的流
+在aa >> ra >> buff >> ia >> buff;语句中，流aa先把实数部分存入int的ra中，由于会遇到一个+，因此会把这个+存入buff中，然后+后面的再存入ia中，这就很巧妙
+把实部和虚部分开了
+最后的一个buff，其实删去也没什么，最后的那个>>buff是没什么用的
+这个办法就很巧妙，也很巧妙运用了流进行string到int的转换
