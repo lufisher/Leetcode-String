@@ -1,0 +1,37 @@
+ Implement strStr().
+
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Example 1:
+
+Input: haystack = "hello", needle = "ll"
+Output: 2
+
+Example 2:
+
+Input: haystack = "aaaaa", needle = "bba"
+Output: -1
+
+//方法一：就用最简单的下标来进行子串是否相等即可
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if(haystack==""&&needle=="")//这些判断条件不明所以的，很奇怪。第一个还能理解，两个都是空串
+            return 0;
+        if(haystack!=""&&needle=="")//为什么第二个是空串，第一个不是空串，要返回0，应该是-1吧
+            return 0;
+        if(haystack==""&&needle!="")
+            return -1;
+        if(needle.size()>haystack.size())
+            return -1;
+        for(int i=0;i<haystack.size()-needle.size()+1;++i){
+            for(int j=0;j<needle.size();++j){//判断haystack的子串和needle是否相同
+                if(haystack[i+j]!=needle[j])
+                    break;
+                if(j==needle.size()-1)
+                    return i;
+            }
+        }
+        return -1;
+    }
+};
